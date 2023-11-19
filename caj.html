@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Cajero Bancario</title>
+  <link rel="stylesheet" type="text/css" href="css/estilo.css">
+</head>
+<body>
+  <div class="container">
+    <img src="imagenes/descarga.jpg" alt="Logo del banco">
+    <h1>Bienvenido al Cajero Bancario</h1>
+    <form id="login-form">
+      <input type="text" id="username" placeholder="Usuario">
+      <input type="password" id="password" placeholder="Contraseña">
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+  </div>
+
+<div id="opciones" style="display: none;">
+    <h2>¡Bienvenido!</h2>
+    <button onclick="ingresarDinero()">Ingresar Dinero</button>
+    <button onclick="retirarDinero()">Retirar Dinero</button>
+    <button onclick="verSaldo()">Ver Saldo</button>
+    <button onclick="salir()">Salir</button>*/
+  </div>
+
+</body>
+</html>
+
+<script>
+  const usuario = "itec";
+const contraseña = "12345";
+let saldo = 1000; // Saldo inicial
+
+// Obtener elementos del formulario
+const formulario = document.getElementById("login-form");
+const inputUsuario = document.getElementById("username");
+const inputContraseña = document.getElementById("password");
+
+// Agregar evento de inicio de sesión
+formulario.addEventListener("submit", function(event) {
+  event.preventDefault(); // Evitar que el formulario se envíe
+
+  const inputUsuarioValue = inputUsuario.value;
+  const inputContraseñaValue = inputContraseña.value;
+
+  if (inputUsuarioValue === usuario && inputContraseñaValue === contraseña) {
+    mostrarOpciones();
+  } else {
+    alert("Usuario o contraseña incorrectos");
+  }
+
+  formulario.reset(); // Limpiar campos de entrada
+});
+
+// Mostrar las opciones después de iniciar sesión
+function mostrarOpciones() {
+  formulario.style.display = "none";
+
+  const opciones = document.createElement("div");
+  opciones.innerHTML = `
+    <h2>¡Bienvenido!</h2>
+    <button onclick="ingresarDinero()">Ingresar Dinero</button>
+    <button onclick="retirarDinero()">Retirar Dinero</button>
+    <button onclick="verSaldo()">Ver Saldo</button>
+    <button onclick="salir()">Salir</button>
+  `;
+
+  document.body.appendChild(opciones);
+}
+
+// Ingresar dinero
+function ingresarDinero() {
+  const monto = prompt("Ingrese el monto a depositar:");
+  if (monto) {
+    saldo += parseInt(monto);
+    alert("¡Depósito exitoso!");
+  }
+}
+
+// Retirar dinero
+function retirarDinero() {
+  const monto = prompt("Ingrese el monto a retirar:");
+  if (monto) {
+    if (parseInt(monto) <= saldo) {
+      saldo -= parseInt(monto);
+      alert("Retiro exitoso");
+    } else {
+      alert("Saldo insuficiente");
+    }
+  }
+}
+
+// Ver saldo
+function verSaldo() {
+  alert(`Tu saldo actual es de $${saldo}`);
+}
+
+
+function salir() {
+      const opciones = document.getElementById("opciones");
+      opciones.style.display = "none";
+      formulario.style.display = "block"; // Mostrar el formulario de inicio de sesión nuevamente
+    }
+
+  
+</script>
